@@ -1462,7 +1462,7 @@ for the first action, etc) of the action to set as default."
   (ivy-read (projectile-prepend-project-name "Switch to project: ")
             (if counsel-projectile-remove-current-project
                 (projectile-relevant-known-projects)
-              projectile-known-projects)
+              (projectile-known-projects))
             :preselect (and (projectile-project-p)
                             (abbreviate-file-name (projectile-project-root)))
             :action (or (and default-action
