@@ -705,6 +705,19 @@ of `(ivy-thing-at-point)' by hitting \"M-n\" in the minibuffer."
   "Format string to use in `cousel-projectile-grep' to
 construct the command.")
 
+(defun counsel-projectile--ignore-glob (pattern)
+  "Strip gitignore-style anchoring markers from PATTERN.
+
+PATTERN is one of the entries returned by `projectile--ignore-patterns'.
+Unlike ripgrep, grep and ag have no notion of anchoring a pattern to the
+project root or to a given depth, so a leading `/' or `**/' and a
+trailing `/' are removed, leaving a plain glob that matches at any
+depth."
+  (let ((body (string-remove-suffix "/" pattern)))
+    (cond ((string-prefix-p "**/" body) (substring body 3))
+          ((string-prefix-p "/" body) (substring body 1))
+          (t body))))
+
 (defun counsel-projectile-grep-action-switch-project (&optional _)
   "Switch project action for `counsel-projectile-grep'."
   (counsel-projectile-switch-project 'counsel-projectile-switch-project-action-grep))
@@ -731,17 +744,16 @@ called with a `\\[universal-argument]' prefix argument."
     (if (and (eq (projectile-project-vcs) 'git)
              projectile-use-git-grep)
         (counsel-projectile-git-grep options-or-cmd)
-      (let* ((ignored-files
+      (let* ((ignore-patterns (projectile--ignore-patterns))
+             (ignored-files
               (mapconcat (lambda (i)
-                           (concat "--exclude=" (shell-quote-argument i)))
-			 (append
-                          (projectile--globally-ignored-file-suffixes-glob)
-                          (projectile-ignored-files-rel))
+                           (concat "--exclude=" (shell-quote-argument (counsel-projectile--ignore-glob i))))
+			 (seq-remove (lambda (i) (string-suffix-p "/" i)) ignore-patterns)
 			 " "))
              (ignored-dirs
               (mapconcat (lambda (i)
-                           (concat "--exclude-dir=" (shell-quote-argument i)))
-			 (projectile-ignored-directories-rel)
+                           (concat "--exclude-dir=" (shell-quote-argument (counsel-projectile--ignore-glob i))))
+			 (seq-filter (lambda (i) (string-suffix-p "/" i)) ignore-patterns)
 			 " "))
              (ignored (concat ignored-files " " ignored-dirs))
              (counsel-ag-base-command
@@ -840,11 +852,8 @@ is called with a `\\[universal-argument]' prefix argument."
     (let* ((ivy--actions-list (copy-sequence ivy--actions-list))
            (ignored
             (mapconcat (lambda (i)
-                         (concat "--ignore " (shell-quote-argument i)))
-                       (append
-                        (projectile--globally-ignored-file-suffixes-glob)
-                        (projectile-ignored-files-rel)
-                        (projectile-ignored-directories-rel))
+                         (concat "--ignore " (shell-quote-argument (counsel-projectile--ignore-glob i))))
+                       (projectile--ignore-patterns)
                        " "))
            (counsel-ag-base-command
             (let ((counsel-ag-command counsel-ag-base-command))
@@ -919,11 +928,8 @@ is called with a `\\[universal-argument]' prefix argument."
            (ignored
             (mapconcat (lambda (i)
                          (concat "--glob !" (shell-quote-argument i)))
-                       (append
-                        (projectile--globally-ignored-file-suffixes-glob)
-                        (projectile-ignored-files-rel)
-                        (projectile-ignored-directories-rel))
-                       " "))        
+                       (projectile--ignore-patterns)
+                       " "))
            (counsel-rg-base-command
             (let ((counsel-ag-command counsel-rg-base-command))
               (counsel--format-ag-command ignored "%s"))))
