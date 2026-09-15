@@ -1,2 +1,3 @@
 *.elc
 /.cask/
+/.pre-commit-config.yaml
