@@ -8,11 +8,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1789419761,
-        "narHash": "sha256-nFqq8qfqLb7SYTx9G+HuP6K+nv8Rj4i1LTJhQW7Ug60=",
+        "lastModified": 1789590564,
+        "narHash": "sha256-qaGT6zwPFBI5kp8riI94N8fVoeM0QJjywbTP+S9jL7w=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "c392a139583882e0a57052cf64560e28b892330f",
+        "rev": "a6cf5faf3e194ebfb83173a2f51d3719a10521a6",
         "type": "github"
       },
       "original": {
@@ -120,6 +120,38 @@
         "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst"
       }
     },
+    "nixpkgs-24_05": {
+      "locked": {
+        "lastModified": 1735563628,
+        "narHash": "sha256-OnSAY7XDSx7CtDoqNh8jwVwh4xNL/2HaJxGjryLWzX8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b134951a4c9f3c995fd7be05f3243f8ecd65d798",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-24.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-24_11": {
+      "locked": {
+        "lastModified": 1751274312,
+        "narHash": "sha256-/bVBlRpECLVzjV19t5KMdMFWSwKLtb5RyXdjz3LJT+g=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "50ab793786d9de88ee30ec4e4c24fb4236fc2674",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-24.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1788057806,
@@ -137,11 +169,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1789344334,
-        "narHash": "sha256-vdhpDJ3Lr24lkZ+fDCjmBRRtw9/vcSzkqGJOJyF5h2U=",
+        "lastModified": 1789459628,
+        "narHash": "sha256-JOaadoI/IC9qEvwlnjwAhwdcWkCDqEeOJ+cOtUH/8RQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c3eea5b2156db11c7eeeada3dc737711255b253e",
+        "rev": "b67c7a60c3732edd4b947a7df8af06215851a614",
         "type": "github"
       },
       "original": {
@@ -159,6 +191,8 @@
         "git-hooks": "git-hooks",
         "nix-systems": "nix-systems",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-24_05": "nixpkgs-24_05",
+        "nixpkgs-24_11": "nixpkgs-24_11",
         "treefmt-nix": "treefmt-nix"
       }
     },

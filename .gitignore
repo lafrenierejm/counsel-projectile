@@ -1,3 +1,8 @@
 *.elc
 /.cask/
+
+# Nix
+/.direnv/
 /.pre-commit-config.yaml
+/bin/
+/result
