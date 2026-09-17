@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=https://www.schemastore.org/github-action.json
+---
+name: Continuous Integration
+on:
+  pull_request:
+    branches:
+      - master
+jobs:
+  nix-build:
+    name: nix build (Emacs ${{ matrix.version }})
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      matrix:
+        version:
+          - 29
+          - 30
+          - 31
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: cachix/install-nix-action@13d8dd58da0234aa297dedd986986ccb8e7f3e24 # v31.11.1
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: nix build
+        env:
+          EMACS_VERSION: ${{ matrix.version }}
+        run: nix build ".#counsel-projectile-emacs-${EMACS_VERSION}"
+  nix-check:
+    name: nix check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: cachix/install-nix-action@13d8dd58da0234aa297dedd986986ccb8e7f3e24 # v31.11.1
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: nix flake check --no-build --show-trace
