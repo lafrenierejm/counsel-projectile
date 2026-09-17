@@ -348,7 +348,7 @@ on `counsel-find-file-ignore-regexp'."
         ;; We apply `counsel--find-file-matcher' to `cands' so we can
         ;; honor `ivy-use-ignore', but we don't need to filter
         ;; again.
-        (counsel--find-file-matcher nil cands))))     
+        (counsel--find-file-matcher nil cands))))
 
 (defun counsel-projectile-find-file-action (file)
   "Find FILE and run `projectile-find-file-hook'."
@@ -450,7 +450,7 @@ The sorting function can be modified by adding an entry for
    ("p" counsel-projectile-find-dir-action-switch-project
     "switch project"))
  'counsel-projectile)
- 
+
 (defun counsel-projectile--project-directories ()
   "Return a list of current project's directories."
   (if projectile-find-dir-includes-top-level
@@ -566,7 +566,7 @@ non-visited file."
 
 Like `projectile-project-buffer-names', but propertize buffer
 names as in `ivy--buffer-list', and remove current buffer if
-`counsel-projectile-remove-currennt-buffer' is non-nil."
+`counsel-projectile-remove-current-buffer' is non-nil."
   (let ((buffer-names (projectile-project-buffer-names)))
     (when counsel-projectile-remove-current-buffer
       (setq buffer-names (delete (buffer-name (current-buffer)) buffer-names)))
@@ -1116,7 +1116,7 @@ The format is the same as in `org-capture-templates-contexts'."
   "Switch project action for `counsel-projectile-org-capture'."
   (setq org-capture-templates counsel-projectile--org-capture-templates-backup)
   (counsel-projectile-switch-project 'counsel-projectile-switch-project-action-org-capture))
-  
+
 ;;;###autoload
 (defun counsel-projectile-org-capture (&optional from-buffer)
   "Capture into the current project.
@@ -1361,7 +1361,7 @@ action."
   (ivy--reset-state ivy-last))
 
 (defun counsel-projectile-switch-project-action-compile (project)
-  "Run PROJECT compliation command."
+  "Run PROJECT compilation command."
   (let ((projectile-switch-project-action
          (lambda ()
            (projectile-compile-project ivy-current-prefix-arg))))
@@ -1582,7 +1582,7 @@ files."
   (if (member name counsel-projectile--buffers)
       (ivy--kill-buffer-action name)
     (counsel-projectile-find-file-action-delete name)))
-  
+
 (defun counsel-projectile-action-find-file-manually (name)
   "Call `counsel-find-file' from default directory of buffer
 directory of file named NAME."

@@ -1,0 +1,5 @@
+# Commits listed here are ignored by `git blame` when this file is configured as the repo's blame.ignoreRevsFile (see CONTRIBUTING.md).
+# Only add commits that are purely mechanical (formatting, renames) and introduce no behavioral change.
+
+# chore: break markdown prose at independent clauses
+55aa7cd4b546862e35f4ec2ff85319ce2a3c276a
