@@ -84,10 +84,13 @@
 
           loadTest =
             name: emacsPackages: package:
+            let
+              emacs = emacsPackages.emacsWithPackages (epkgs: [ package ]);
+            in
             pkgs.runCommand "counsel-projectile-load-${name}" { } ''
-              ${
-                emacsPackages.emacsWithPackages (epkgs: [ package ])
-              }/bin/emacs --batch --eval "(require 'counsel-projectile)"
+              cp ${./counsel-projectile.el} counsel-projectile.el
+              ${emacs}/bin/emacs --batch -f batch-byte-compile counsel-projectile.el
+              ${emacs}/bin/emacs --batch --eval "(require 'counsel-projectile)"
               touch $out
             '';
         in

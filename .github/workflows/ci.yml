@@ -22,10 +22,16 @@ jobs:
       - uses: cachix/install-nix-action@13d8dd58da0234aa297dedd986986ccb8e7f3e24 # v31.11.1
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: nix build
+      - name: build
         env:
           EMACS_VERSION: ${{ matrix.version }}
-        run: nix build ".#counsel-projectile-emacs-${EMACS_VERSION}"
+        run: |
+          nix build ".#counsel-projectile-emacs-${EMACS_VERSION}"
+      - name: compile and load
+        env:
+          EMACS_VERSION: ${{ matrix.version }}
+        run: |
+          nix build ".#checks.x86_64-linux.counsel-projectile-load-emacs-${EMACS_VERSION}"
   nix-check:
     name: nix check
     runs-on: ubuntu-latest
