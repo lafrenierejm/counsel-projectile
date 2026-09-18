@@ -115,6 +115,23 @@
             test-emacs-31 = test "emacs-31" emacsPackages31 self'.packages.counsel-projectile-emacs-31;
           };
 
+          apps.release = {
+            type = "app";
+            meta.description = "Cut a new release";
+            program = pkgs.lib.getExe (
+              pkgs.writeShellApplication {
+                name = "release";
+                runtimeInputs = [
+                  pkgs.convco
+                  pkgs.gh
+                  pkgs.git
+                  pkgs.gnused
+                ];
+                text = builtins.readFile ./scripts/release.sh;
+              }
+            );
+          };
+
           pre-commit = {
             check.enable = true;
             settings.package = pkgs.prek;
