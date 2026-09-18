@@ -3,7 +3,8 @@
 ;; Copyright (C) 2016-2021 Eric Danan
 
 ;; Author: Eric Danan
-;; URL: https://github.com/ericdanan/counsel-projectile
+;; Maintainer: Joseph LaFreniere <git@lafreniere.xyz>
+;; URL: https://github.com/lafrenierejm/counsel-projectile
 ;; Keywords: project, convenience
 ;; Version: 0.3.5
 ;; Package-Requires: ((counsel "0.13.4") (projectile "3.3.0"))

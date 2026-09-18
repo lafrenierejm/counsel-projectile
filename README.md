@@ -1,6 +1,6 @@
 [![MELPA](https://melpa.org/packages/counsel-projectile-badge.svg)](https://melpa.org/#/counsel-projectile)
 [![MELPA Stable](https://stable.melpa.org/packages/counsel-projectile-badge.svg)](https://stable.melpa.org/#/counsel-projectile)
-[![Github commits (since latest release)](https://img.shields.io/github/commits-since/ericdanan/counsel-projectile/latest.svg)](https://github.com/ericdanan/counsel-projectile/releases)
+[![Github commits (since latest release)](https://img.shields.io/github/commits-since/lafrenierejm/counsel-projectile/latest.svg)](https://github.com/lafrenierejm/counsel-projectile/releases)
 
 # Description
 
