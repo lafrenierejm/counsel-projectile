@@ -82,15 +82,20 @@
               ];
             };
 
-          loadTest =
+          test =
             name: emacsPackages: package:
             let
-              emacs = emacsPackages.emacsWithPackages (epkgs: [ package ]);
+              emacs = emacsPackages.emacsWithPackages (epkgs: [
+                package
+                epkgs.buttercup
+              ]);
             in
-            pkgs.runCommand "counsel-projectile-load-${name}" { } ''
+            pkgs.runCommand "counsel-projectile-test-${name}" { } ''
               cp ${./counsel-projectile.el} counsel-projectile.el
               ${emacs}/bin/emacs --batch -f batch-byte-compile counsel-projectile.el
               ${emacs}/bin/emacs --batch --eval "(require 'counsel-projectile)"
+              cp -r ${./tests} tests
+              ${emacs}/bin/emacs --batch -L . -l buttercup -f buttercup-run-discover tests
               touch $out
             '';
         in
@@ -103,15 +108,9 @@
           };
 
           checks = {
-            counsel-projectile-load-emacs-29 =
-              loadTest "emacs-29" emacsPackages29
-                self'.packages.counsel-projectile-emacs-29;
-            counsel-projectile-load-emacs-30 =
-              loadTest "emacs-30" emacsPackages30
-                self'.packages.counsel-projectile-emacs-30;
-            counsel-projectile-load-emacs-31 =
-              loadTest "emacs-31" emacsPackages31
-                self'.packages.counsel-projectile-emacs-31;
+            test-emacs-29 = test "emacs-29" emacsPackages29 self'.packages.counsel-projectile-emacs-29;
+            test-emacs-30 = test "emacs-30" emacsPackages30 self'.packages.counsel-projectile-emacs-30;
+            test-emacs-31 = test "emacs-31" emacsPackages31 self'.packages.counsel-projectile-emacs-31;
           };
 
           pre-commit = {

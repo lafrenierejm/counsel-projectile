@@ -27,11 +27,11 @@ jobs:
           EMACS_VERSION: ${{ matrix.version }}
         run: |
           nix build ".#counsel-projectile-emacs-${EMACS_VERSION}"
-      - name: compile and load
+      - name: test
         env:
           EMACS_VERSION: ${{ matrix.version }}
         run: |
-          nix build ".#checks.x86_64-linux.counsel-projectile-load-emacs-${EMACS_VERSION}"
+          nix build ".#checks.x86_64-linux.test-emacs-${EMACS_VERSION}"
   nix-check:
     name: nix check
     runs-on: ubuntu-latest
