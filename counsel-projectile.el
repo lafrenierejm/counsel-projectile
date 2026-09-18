@@ -45,6 +45,7 @@
 
 (require 'counsel)
 (require 'projectile)
+(require 'subr-x)
 
 ;;* global
 
