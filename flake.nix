@@ -61,7 +61,9 @@
             # linked libgccjit crashes dyld on current macOS; disabling
             # native-comp forces a local build against this host's toolchain
             # instead of using that broken cached binary.
-            pkgsEmacs29.emacs.override { withNativeCompilation = !pkgs.stdenv.isDarwin; }
+            pkgsEmacs29.emacs.override {
+              withNativeCompilation = !pkgs.stdenv.hostPlatform.isDarwin;
+            }
           );
           emacsPackages30 = pkgsEmacs30.emacsPackagesFor pkgsEmacs30.emacs;
           emacsPackages31 = pkgsEmacs31.emacsPackagesFor pkgsEmacs31.emacs;
